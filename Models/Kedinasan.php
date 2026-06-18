@@ -1,7 +1,7 @@
 <?php
 
 class PendaftaranKedinasan extends Pendaftaran {
-    // Properti Tambahan (camelCase)
+    // Properti tambahan (camelCase)
     private string $skIkatanDinas;
     private string $instansiSponsor;
 
@@ -18,14 +18,13 @@ class PendaftaranKedinasan extends Pendaftaran {
         $this->instansiSponsor = $instansiSponsor;
     }
 
-    // Getter untuk properti spesifik
+    // Getter spesifik
     public function getSkIkatanDinas(): string { return $this->skIkatanDinas; }
     public function getInstansiSponsor(): string { return $this->instansiSponsor; }
 
-    // Implementasi Method Abstract dari Induk
+    // [POLIMORFISME] Surcharge/biaya tambahan administrasi dinas sebesar 25% (x 1.25)
     public function hitungTotalBiaya(): float {
-        // Ada tambahan biaya tes fisik / diklat sebesar 100.000
-        return $this->biayaPendaftaranDasar + 100000.00;
+        return $this->biayaPendaftaranDasar * 1.25;
     }
 
     public function tampilkanInfoJalur(): void {
@@ -36,7 +35,6 @@ class PendaftaranKedinasan extends Pendaftaran {
 
     /**
      * Metode Query Spesifik untuk mengambil semua data Kedinasan
-     * @param PDO $db Objek koneksi database PDO
      */
     public static function getDaftarKedinasan(PDO $db): array {
         $sql = "SELECT id_pendaftaran, nama_calon, asal_sekolah, nilai_ujian, biaya_pendaftaran_dasar, sk_ikatan_dinas, instansi_sponsor 

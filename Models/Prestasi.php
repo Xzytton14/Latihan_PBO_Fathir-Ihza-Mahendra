@@ -1,7 +1,7 @@
 <?php
 
 class PendaftaranPrestasi extends Pendaftaran {
-    // Properti Tambahan (camelCase)
+    // Properti tambahan (camelCase)
     private string $jenisPrestasi;
     private string $tingkatPrestasi;
 
@@ -18,13 +18,12 @@ class PendaftaranPrestasi extends Pendaftaran {
         $this->tingkatPrestasi = $tingkatPrestasi;
     }
 
-    // Getter untuk properti spesifik
+    // Getter spesifik
     public function getJenisPrestasi(): string { return $this->jenisPrestasi; }
     public function getTingkatPrestasi(): string { return $this->tingkatPrestasi; }
 
-    // Implementasi Method Abstract dari Induk
+    // [POLIMORFISME] Potongan/insentif apresiasi prestasi sebesar Rp50.000
     public function hitungTotalBiaya(): float {
-        // Diskon apresiasi prestasi sebesar 50.000
         return $this->biayaPendaftaranDasar - 50000.00;
     }
 
@@ -36,7 +35,6 @@ class PendaftaranPrestasi extends Pendaftaran {
 
     /**
      * Metode Query Spesifik untuk mengambil semua data Prestasi
-     * @param PDO $db Objek koneksi database PDO
      */
     public static function getDaftarPrestasi(PDO $db): array {
         $sql = "SELECT id_pendaftaran, nama_calon, asal_sekolah, nilai_ujian, biaya_pendaftaran_dasar, jenis_prestasi, tingkat_prestasi 
@@ -62,4 +60,4 @@ class PendaftaranPrestasi extends Pendaftaran {
         
         return $daftarPrestasi;
     }
-}
+}   

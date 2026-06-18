@@ -1,7 +1,7 @@
 <?php
 
 class PendaftaranReguler extends Pendaftaran {
-    // Properti Tambahan (camelCase)
+    // Properti tambahan (camelCase)
     private string $pilihanProdi;
     private string $lokasiKampus;
 
@@ -18,13 +18,13 @@ class PendaftaranReguler extends Pendaftaran {
         $this->lokasiKampus = $lokasiKampus;
     }
 
-    // Getter untuk properti spesifik
+    // Getter spesifik
     public function getPilihanProdi(): string { return $this->pilihanProdi; }
     public function getLokasiKampus(): string { return $this->lokasiKampus; }
 
-    // Implementasi Method Abstract dari Induk
+    // [POLIMORFISME] Tarif standar murni tanpa biaya tambahan
     public function hitungTotalBiaya(): float {
-        return $this->biayaPendaftaranDasar; // Reguler tidak ada tambahan/potongan biaya
+        return $this->biayaPendaftaranDasar;
     }
 
     public function tampilkanInfoJalur(): void {
@@ -35,8 +35,6 @@ class PendaftaranReguler extends Pendaftaran {
 
     /**
      * Metode Query Spesifik untuk mengambil semua data Reguler
-     * @param PDO $db Objek koneksi database PDO
-     * @return PendaftaranReguler[] Array berisi objek dari kelas ini
      */
     public static function getDaftarReguler(PDO $db): array {
         $sql = "SELECT id_pendaftaran, nama_calon, asal_sekolah, nilai_ujian, biaya_pendaftaran_dasar, pilihan_prodi, lokasi_kampus 
@@ -48,7 +46,6 @@ class PendaftaranReguler extends Pendaftaran {
         
         $daftarReguler = [];
         foreach ($rows as $row) {
-            // Instansiasi objek dari data database
             $obj = new self(
                 $row['nama_calon'],
                 $row['asal_sekolah'],
